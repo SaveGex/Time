@@ -6,47 +6,37 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <stdexcept> 
+
 using namespace std;
 
 class Time {
 private:
+    int hour = 0;
+    int minute = 0;
+    int second = 0;
 
-	int hour = 0;
-	int minute = 0;
-	int second = 0;
-
-	void time_transition();
+    void time_transition();
 
 public:
+    Time(int hour, int minute, int second);
 
+    Time(int minute, int second);
 
-	Time(int hour, int minute, int second);
-	Time(int minute, int second);
-	Time(int seconds);
-	Time();
+    Time(int seconds);
 
-	string getter_all() {
-		return " hours: " + to_string(hour) + " minutes: " + to_string(minute) + " seconds: " + to_string(second);
-	}
+    Time() : Time(0, 0, 0) {}
 
-	Time& operator++(int);
-	
-	Time operator-(int& seconds);
-	Time operator-(Time& obj);
-	Time& operator=(Time obj);
-	Time operator=(Time& obj);
-	Time& operator+=(Time& obj);
-	Time& operator-=(Time& obj);
+    string getter_all();
 
-	bool operator!=(Time& obj);
-	bool operator==(Time& obj);
-	bool operator>(const Time& obj);
-	bool operator<(const Time& obj);
-	
-	friend istream& operator>>(istream& in, Time& obj);
-	friend ostream& operator<<(ostream& out, Time& obj);
+    Time& operator+=(Time& obj);
 
+    Time& operator-=(Time& obj);
+    Time& operator-=(Time&& obj);
 
+    friend istream& operator>>(istream& in, Time& obj);
+
+    friend ostream& operator<<(ostream& out, const Time& obj);
 };
 
 #endif // !Time_h

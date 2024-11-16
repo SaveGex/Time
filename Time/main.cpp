@@ -1,31 +1,29 @@
-#include <iostream>
 #include "Time.h"
-using namespace std;
 
+using namespace std; 
 
 int main() {
+    try {
+        Time t1(-5, 30, 20); // Негативний час викликає виняток
+    }
+    catch (const exception& e) {
+        cerr << "Caught exception in main: " << e.what() << endl;
+    }
 
-	Time obj1(3122);
-	Time obj2;
-	cout << obj1 << "\nWrite value(hours/minutes/seconds or minutes/seconds or seconds):\n";
-	cin >> obj2;
-	Time result;
-	result = (obj1 - obj2);
-	cout <<'\n' << result;
-	//++, –, != , == , > , <, >> , << , =, +=, –=, ().
-	result++;
-	cout <<'\n'<< result;
-	cout << '\n' << "result != result: " << ((result != result) ? "true" : "false");
-	cout << '\n' << "result == result: " << ((result == result) ? "true" : "false");
-	cout << '\n' << "result > obj2: " << ((result > obj2) ? "true" : "false");
-	cout << "\nobj1: " << obj1.getter_all();
-	cout << '\n' << "result < obj2: " << ((result < obj2) ? "true" : "false");
-	cout << '\n' << result;
-	result += obj2;
-	cout << '\n' << result;
-	result -= obj2;
-	cout << '\n' << result;
+    try {
+        Time t2(1, 30, 80); // Автоматична корекція
+        cout << t2 << endl;
 
+        Time t3;
+        t3 += t2; // Складання часу
+        cout << t3 << endl;
 
-	return 0;
+        t3 -= Time(0, 120, 0); // Віднімання часу
+        cout << t3 << endl;
+    }
+    catch (const exception& e) {
+        cerr << "Caught exception in main: " << e.what() << endl;
+    }
+
+    return 0;
 }
